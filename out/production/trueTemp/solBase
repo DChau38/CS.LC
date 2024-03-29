@@ -1,0 +1,42 @@
+import org.w3c.dom.Node;
+
+import java.util.*;
+
+public class Leetcode {
+public static void main (String []args){
+    Solution sol = new Solution();
+    sol.isValid("{}");
+
+        }
+}
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> check = new Stack<>();
+        /* When reading the next character, there are 3 possible scenarios.
+        sce1: is that it's the correct closing bracket, both we can discard.
+        sce2: its the wrong closing bracket, in which case you call a fail.
+        sce3: its a new opening bracket, in which case you continue the
+        nesting.
+        3scenarios = increaseNesting, decreaseNesting, blowUp*/
+        for (int i=0; i<s.length();i++){
+            // opening braces
+            if (s.charAt(i) == '('){
+                check.push(')');
+            } else
+            if (s.charAt(i) == '{'){
+                check.push('}');
+            } else
+            if (s.charAt(i)=='['){
+                check.push(']');
+            } else
+            // closing braces: curSolves sce1,2,3
+            if (check.empty() || s.charAt(i)!=check.pop()){
+                return false;
+            }
+
+        }
+        return check.empty();
+        // edgeCases: if s=empty,{. Think a pattern is if it's not empty, it
+        // fails. Let's work with that.
+    }
+}
